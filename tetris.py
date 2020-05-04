@@ -179,8 +179,7 @@ def valid_space(shape, grid):
     for pos in formatted:
         if pos not in accepted_pos:
             if pos[1] > -1:
-                return False 
-
+                return False
     return True
 
 def check_lost(positions):
@@ -206,7 +205,7 @@ def draw_grid(surface, grid):
     sy = top_left_y 
 
     for i in range(len(grid)):
-        pygame.draw.line(surface, (128, 128, 128), (sx, xy + i*block_size), (sx + play_width, sy + i * block_size)) # horizontal lines
+        pygame.draw.line(surface, (128, 128, 128), (sx, sy + i*block_size), (sx + play_width, sy + i * block_size)) # horizontal lines
         for j in range(len(grid[i])):
             pygame.draw.line(surface, (128, 128, 128), (sx + j * block_size, sy), (sx + j * block_size, sy + play_height)) # vertical lines 
 
@@ -231,6 +230,7 @@ def clear_rows(grid, locked):
             if y < ind:
                 newKey = (x, y + inc)
                 locked[newKey] = locked.pop(key)
+
     return inc
 
 def draw_next_shape(shape, surface):
@@ -290,7 +290,7 @@ def draw_window(surface, grid, score=0, last_score=0):
     sx = top_left_x - 200
     sy = top_left_y + 200
 
-    surface.blit(label, (sx+20, sy+160))
+    surface.blit(label, (sx + 20, sy + 160))
 
     for i in range(len(grid)):
         for j in range(len(grid[i])):
@@ -299,7 +299,7 @@ def draw_window(surface, grid, score=0, last_score=0):
     pygame.draw.rect(surface, (255, 0, 0), (top_left_x, top_left_y, play_width, play_height), 5)
 
     draw_grid(surface, grid)
-    #pygame.display.update()
+    # pygame.display.update()
 
 def main():
     last_score = max_score()
