@@ -150,7 +150,7 @@ def convert_shape_format(shape):
     for i, line in enumerate(format):
         row = list(line)
         for j, column in enumerate(row):
-            if column == \'0\':
+            if column == '0':
                 positions.append((shape.x + j, shape.y + i))
         
         for i, pos in enumerate(positions):
@@ -165,7 +165,7 @@ def valid_space(shape, grid):
     formatted = convert_shape_format(shape)
 
     for pos in formatted:
-        if pos not in accepted_pos:
+        if pos not in accepted_positions:
             if pos[1] > -1:
                 return False
     return True
@@ -183,7 +183,7 @@ def get_shape():
     return Piece(5, 0, random.choice(shapes))
 
 def draw_text_middle(text, size, color, surface):  
-    font = pygame.font.SysFont(\'comicsans\', size, bold=True)
+    font = pygame.font.SysFont('comicsans', size, bold=True)
     label = font.render(text, 1, color)
 
     surface.blit(label, (top_left_x + play_width/2 - (label.get_width()/2), top_left_y + play_height/2 - label.get_height()/2))
@@ -222,8 +222,8 @@ def clear_rows(grid, locked):
                 locked[newKey] = locked.pop(key)
 
 def draw_next_shape(shape, surface):
-    font = pygame.font.SysFont(\'comicsans\', 30)
-    label = font.render(\'Next Shape\', 1, (255, 255, 255))
+    font = pygame.font.SysFont('comicsans', 30)
+    label = font.render('Next Shape', 1, (255, 255, 255))
 
     sx = top_left_x + play_width + 50
     sy = top_left_y + play_height/2 - 100 
@@ -232,7 +232,7 @@ def draw_next_shape(shape, surface):
     for i, line in enumerate(format):
         row = list(line)
         for j, column in enumerate(row):
-            if column == \'0\':
+            if column == '0':
                 pygame.draw.rect(surface, shape.color, (sx + j*30, sy + i*30, 30, 30), 0)
     
     surface.blit(label, (sx + 10, sy - 30))
@@ -242,8 +242,8 @@ def draw_window(surface, grid, score=0, last_score = 0):
 
     # Tetris Title 
     pygame.font.init()
-    font = pygame.font.SysFont(\'comicsans\', 60)
-    label = font.render(\'TETRIS\', 1, (255, 255, 255))
+    font = pygame.font.SysFont('comicsans', 60)
+    label = font.render('TETRIS', 1, (255, 255, 255))
 
     surface.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
 
@@ -307,7 +307,7 @@ def main():
                     if not (valid_space(current_piece, grid)):
                         current_piece.y -= 1 
                 
-                if event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP:
                     # rotate shape
                     current_piece.rotation + current_piece.rotation + 1 % len(current_piece.shape)
                     if not valid_space(current_piece, grid):
@@ -345,7 +345,7 @@ def main_menu(win):
     run = True
     while run:
         win.fill((0, 0, 0))
-        draw_text_middle(win, \'Press any key to play\', 60, (255, 255, 255))
+        draw_text_middle(win, 'Press any key to play', 60, (255, 255, 255))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -357,6 +357,6 @@ def main_menu(win):
     pygame.display.quit()
 
 win = pygame.display.set_mode((s_width, s_height))
-pygame.display.set_caption(\'Tetris\')
+pygame.display.set_caption('Tetris')
 
-main_menu()  # start game
+main_menu(win)  # start game
