@@ -172,6 +172,7 @@ def check_lost(positions):
         x, y = pos 
         if y < 1:
             return True
+
     return False 
 
 def get_shape():
@@ -194,8 +195,7 @@ def draw_grid(surface, grid):
             pygame.draw.line(surface, (128, 128, 128), (sx + j * block_size, sy), (sx + j * block_size, sy + play_height)) # vertical lines 
 
 def clear_rows(grid, locked):
-    # need to see if row is clear the shift every other row above down one 
-    inc = 0 
+    inc = 0
     for i in range(len(grid)-1,-1,-1):
         row = grid[i]
         if (0, 0, 0) not in row:
@@ -285,8 +285,8 @@ def max_score():
 
     return score
 
-def main():
-    last_score = max_score()
+def main(win):
+    last_score = int(max_score())
     locked_positions = {} # (x, y): (255, 0, 0)
     grid = create_grid(locked_positions)
 
@@ -330,18 +330,18 @@ def main():
                     if not (valid_space(current_piece, grid)):
                         current_piece.x += 1 
                 
-                elif event.key == pygame.K.RIGHT:
+                if event.key == pygame.K_RIGHT:
                     current_piece.x += 1 
                     if not (valid_space(current_piece, grid)):
                         current_piece.x -= 1 
                 
-                elif event.key == pygame.K_DOWN:
+                if event.key == pygame.K_DOWN:
                     # move shape down 
                     current_piece.y += 1 
                     if not (valid_space(current_piece, grid)):
                         current_piece.y -= 1 
                 
-                elif event.key == pygame.K_UP:
+                if event.key == pygame.K_UP:
                     # rotate shape
                     current_piece.rotation += 1
                     if not (valid_space(current_piece, grid)):
